@@ -1,0 +1,303 @@
+\documentclass[12pt, a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{tabularx}
+\usepackage{textgreek} % řecká písmena
+\usepackage[bf,sf]{titlesec} % nastaveni formatovani kapitol
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=2cm]{geometry} % nastavi okraje stranek
+\usepackage[hidelinks]{hyperref} % skryje url linky
+\usepackage{indentfirst} % nastaveni odsazeni odstavce
+\setlength{\parindent}{10mm} % nastavi velikost odstavce
+\usepackage{color} % povolí barevné písmo
+
+% nastaveni formatovani kodu start
+\usepackage{listings}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstdefinelanguage{Kotlin}{ % nastaveni formatovani pro Kotlin
+  comment=[l]{//},
+  commentstyle={\color{gray}\ttfamily},
+  emph={delegate, filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println, return@},
+  emphstyle={\color{OrangeRed}},
+  identifierstyle=\color{black},
+  keywords={abstract, actual, as, as?, break, by, class, companion, continue, data, do, dynamic, else, enum, expect, false, final, for, fun, get, if, import, in, interface, internal, is, null, object, override, package, private, public, return, set, super, suspend, this, throw, true, try, typealias, val, var, vararg, when, where, while},
+  keywordstyle={\color{NavyBlue}\bfseries},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[s]{"""*}{*"""},
+  ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String},
+  ndkeywordstyle={\color{BurntOrange}\bfseries},
+  sensitive=true,
+  stringstyle={\color{ForestGreen}\ttfamily},
+}
+
+\lstset{
+	frame=tb, % tb, none
+	framexleftmargin=3em,
+	xleftmargin=0em,
+	xrightmargin=0em,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=left, % nebo none
+	numberstyle=\tiny\color{gray},
+	numbersep=0em,    
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3,
+	literate=~{ }1 % nahrazuje ~ (tildu) prázdnou mezerou
+}% nastaveni formatovani kodu konec
+
+
+% konstanty
+\newcommand{\ConstAuthorName}{Bc. Ondřej Schrek}
+\newcommand{\ConstWriteDate}{\today}
+
+\begin{document} 
+	\pagestyle{empty} % zákaz číslování stran
+	
+	\begin{titlepage} % titulní strana
+		\centering
+		\begin{center}
+			\textsc{\LARGE Vysoká škola ekonomická v~Praze}\\[1.5cm]
+			\textsc{\Large Fakulta informatiky a~statistiky}\\[0.5cm]
+			\textsc{\large Katedra informačních technologií}\\[1.5cm]
+			
+			\textsc{Studijní program: Aplikovaná informatika}\\[0.5cm]
+			\textsc{Obor: Informační systémy a~technologie}\\
+			\vspace*{\fill}
+			
+			{\huge \bfseries{Prototyp aplikace pro ověření identity studenta u~písemné zkoušky }}\\[1.5cm]
+			\textbf{DIPLOMOVÁ PRÁCE}
+		\end{center}
+	
+		\vspace*{\fill}
+		
+		\begin{flushleft} % odsazení vlevo
+			{\large
+				\textbf{Student: \ConstAuthorName}\\
+				\textbf{Vedoucí: Ing. Libor Gála, Ph.D.}
+			}
+		\end{flushleft}
+	
+		\vfill
+		
+		\begin{minipage}[b]{\textwidth}
+			\begin{center}
+				\large \textbf{2019}
+			\end{center}
+		\end{minipage}
+
+	\end{titlepage} % konec titulní strana
+	
+	\clearpage\mbox{}\clearpage % volná strana
+	
+	% PROHLÁŠENÍ
+	\vspace*{\fill}
+	\section*{Prohlášení}
+	\noindent Prohlašuji, že jsem diplomovou práci zpracoval samostatně
+	a~že jsem uvedl všechny použité prameny a~literaturu, ze kterých jsem čerpal\\[1.5cm]
+	\noindent V~Praze dne \ConstWriteDate \hfill \dotfill\\
+	\begin{minipage}{\textwidth}
+		\hfill \ConstAuthorName \hspace*{1cm}
+	\end{minipage}
+	% KONEC PROHLÁŠENÍ
+	
+	\clearpage\mbox{}\clearpage % volná strana
+	
+	\vspace*{\fill}
+	% PODĚKOVÁNÍ
+	\section*{Poděkování}
+	\noindent Text poděkování.
+	% KONEC PODĚKOVÁNÍ
+	
+	\clearpage\mbox{}\clearpage % volná strana
+	
+	% ABSRATKT
+	\section*{Abstrakt}
+	Doplnit text.
+	
+	\section*{Klíčová slova}
+	Doplnit klíčová slova.
+	% KONEC ABSRATKT
+	
+	\clearpage\mbox{}\clearpage % volná strana
+	
+	% ABSRATKT ANJ
+	\section*{Abstract}
+	Doplnit anj text.
+	
+	\section*{Keywords}
+	Doplnit anj klíčová slova.
+	% KONEC ABSRATKT ANJ
+	
+	\clearpage\mbox{}\clearpage % volná strana
+	
+	% OBSAH
+	\tableofcontents % generování obsahu
+	\renewcommand{\thepage}{\arabic{page}} % arabské číslování stránek
+	\renewcommand{\baselinestretch}{1.5} % řádkování 1.5
+	\addtocontents{toc}{\protect\thispagestyle{empty}} % obsah nebud číslovaný
+	% KONEC OBSAH 
+	
+	\normalsize % default velikost písma
+	
+	% ÚVOD
+	\chapter*{Úvod}
+	\addcontentsline{toc}{chapter}{Úvod} % přidá kapitolu do obsahu
+	\pagestyle{plain} % začnou se číslovat stránky
+	\setcounter{page}{1} % pro úvod se nastaví číslo 1
+	Text úvodu.
+	% KONEC ÚVOD
+	
+	% KAPITOLA CHARAKTERISTIKA PROBLÉMU
+	\chapter{Charakteristika problému}
+		\section{Současný stav systému}
+		
+		\section{Problémy stávajícího systému}
+		\section{Souhrn problémů a~podmínek řešení}
+		\section{Návrh řešení}
+		\section{Cíl práce}
+	% KONEC KAPITOLY CHARAKTERISTIKA PROBLÉMU
+	
+	% ZÁVĚR
+	\chapter*{Závěr}
+	\addcontentsline{toc}{chapter}{Závěr} % přidá závěr do obsahu
+	Text závěru.
+	% KONEC ZÁVĚR
+	
+	% CITACE
+	\bibliographystyle{alpha} % typ číslování odstavce
+	\bibliography{Zdroje}
+	% KONEC CITACE
+
+	\newpage
+
+	\begin{lstlisting} % formátování jako zdrojový kód Java
+		// Hello.java
+		import javax.swing.JApplet;
+		import java.awt.Graphics;
+
+		public class Hello extends JApplet {
+			public void paintComponent(Graphics g) {
+				g.drawString("Hello, world!", 65, 95);
+			}    
+		}
+	\end{lstlisting}
+	
+	\begin{lstlisting} % formátování jako zdrojový kód Java
+	
+	
+	
+	
+	
+		package com.example.admin.androidactivity;
+	    import android.os.Bundle;
+	    import android.support.annotation.Nullable;
+	    import android.support.design.widget.FloatingActionButton;
+	    import android.support.design.widget.Snackbar;
+	    import android.support.v7.app.AppCompatActivity;
+	    import android.support.v7.widget.Toolbar;
+	    import android.view.View;
+	    import android.view.Menu;
+	    import android.view.MenuItem;
+		
+		public class ActivityExample extends AppCompatActivity {
+		    @Override
+		    protected void onStart() {
+		        super.onStart();
+		    }
+		
+		    @Override
+		    protected void onCreate(@Nullable Bundle savedInstanceState) {
+		        super.onCreate(savedInstanceState);
+		    }
+		
+		    @Override
+		    protected void onStop() {
+		        super.onStop();
+		    }
+		
+		    @Override
+		    protected void onResume() {
+		        super.onResume();
+		    }
+		
+		    @Override
+		    protected void onPause() {
+		        super.onPause();
+		    }
+		
+		    @Override
+		    protected void onDestroy() {
+		        super.onDestroy();
+		    }
+		}
+	\end{lstlisting}
+	
+	\begin{lstlisting}[caption={Simple code listing.}, label={lst:example1}, language=Kotlin]
+		/* Block comment */
+		package hello
+		import kotlin.collections.* // line comment
+		
+		/**
+		 * Doc comment here for `SomeClass`
+		 * @see Iterator#next()
+		 */
+		@Deprecated("Deprecated class")
+		private class MyClass<out T : Iterable<T>>(var prop1 : Int) {
+		    fun foo(nullable : String?, r : Runnable, f : () -> Int, 
+		        fl : FunctionLike, dyn: dynamic) {
+		        println("length\nis ${nullable?.length} \e")
+		        val ints = java.util.ArrayList<Int?>(2)
+		        ints[0] = 102 + f() + fl()
+		        val myFun = { -> "" };
+		        var ref = ints.size
+		        ints.lastIndex + globalCounter
+		        ints.forEach lit@ {
+		            if (it == null) return@lit
+		            println(it + ref)
+		        }
+		        dyn.dynamicCall()
+		        dyn.dynamicProp = 5
+		    }
+		    
+		    val test = """hello
+		                  world
+		                  kotlin"""
+		    override fun hashCode(): Int {
+		        return super.hashCode() * 31
+		    }
+		}
+		fun Int?.bar() {
+		    if (this != null) {
+		        println(message = toString())
+		    }
+		    else {
+		        println(this.toString())
+		    }
+		}
+		var globalCounter : Int = 5
+		    get = field
+		abstract class Abstract {
+		}
+		object Obj
+		enum class E { A, B }
+		interface FunctionLike {
+		    operator fun invoke() = 1
+		}
+	\end{lstlisting}
+	
+\end{document}
