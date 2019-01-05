@@ -20,7 +20,7 @@
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\lstdefinelanguage{Kotlin}{
+\lstdefinelanguage{Kotlin}{ % nastaveni formatovani pro Kotlin
   comment=[l]{//},
   commentstyle={\color{gray}\ttfamily},
   emph={delegate, filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println, return@},
@@ -37,7 +37,7 @@
   stringstyle={\color{ForestGreen}\ttfamily},
 }
 
-\lstset{
+\lstset{ 
 	frame=tb, % tb, none
 	framexleftmargin=3em,
 	xleftmargin=0em,
@@ -159,15 +159,52 @@
 	\addcontentsline{toc}{chapter}{Úvod} % přidá kapitolu do obsahu
 	\pagestyle{plain} % začnou se číslovat stránky
 	\setcounter{page}{1} % pro úvod se nastaví číslo 1
-	Text úvodu.
+	V dnešní době se téměř každá instituce nějakým způsobem potýká s problémem efektivního identifikování osob. 
+	Vysoké školy jsou jednou z těchto institucí, kde se také potýkají s tímto problémem. Jelikož je zde potřeba často identifikovat větší skupiny studentů v co nejkratším čase.
+	Příkladem je identifikace studentů u zkoušek, kdy zkoušející musí identifikovat každého studenta, 
+	zda-li je zapsán na zkoušku a také jestli se jedná skutečně o osobu daného studenta.
+	Na Vysoké škole ekonomické v Praze je potřeba řešení pro efektivnější a spolehlivější způsob identifikace. Řešení které bude reflektovat současné technické možnosti a 
+	rozšiřovat systém, který je již na VŠE nastaven. Mezi další požadavky patří také to, aby řešení bylo možné snadno plošně nasadit při zachování nízkých nákladů.
+	\\
+	
+	Cílem práce je vytvořit prototyp aplikace, který umožní identifikovat studenty u zkoušky.
+	Tento prototyp bude realizován v podobě mobilní aplikace pro zařízení se systémem Android.
+	Implementace bude provedena v jazyce Kotlin.
+	Aplikace bude umožňovat načítání informací z identifikačních karet používaných studenty.
+	Aplikace bude propojená s informačním systémem školy, ze kterého bude získávat informace o zkouškách a jejich účastnících.
+	\\
+	
+	Součástí této práce je analýza současného stavu řešení systému identifikace a možností jeho zlepšení.
+	Podle analýzou nalezených slabých míst a problémů bude navrhnut cílový stav systému identifikace.
+	Poté budou zvoleny technologie pro implementaci a přístupy jakými lze dosáhnout cílového stavu systému.
+	V souladu s vybraným přístupem bude navrhnuta integrace prototypu s informačním systémem InSIS.
+	Dále se vydefinují úkoly k implementaci a vytvoří se samotný postup implementace.
+	Podle navrhovaného postupu bude popsána implementace jednotlivých úkolů.
+	V další části bude navrženo a popsáno testování prototypu. Poslední část práce nastíní možnosti dalšího rozvoje aplikace.
+	
 	% KONEC ÚVOD
 	
 	% KAPITOLA CHARAKTERISTIKA PROBLÉMU
 	\chapter{Charakteristika problému}
 		\section{Současný stav systému}
+		V současné době se na VŠE používá k identifikaci studentů u zkoušek kontrola proti vytištěným seznamům přihlášených studentů.
+		Zkoušející musí procházet seznam a vyhledávat studenty dle jejich školních identifikačních karet, nebo dokladů totožnosti, kterými se na začátku zkoušky prokazují.
+		Při zkouškách kde je nahlášeno mnoho studentů je tato činnost velmi zdlouhavá a vyžaduje po zkoušejícím přípravu navíc. 
+		Minimálně v podobě tisku aktuálních seznamů studentů těsně před zkouškou. Současný systém umožňuje identifikaci studenta pomocí načtení karty při vstupu do místnosti,
+		avšak toto není dostatečně přesný způsob pro identifikaci konkrétního studenta z důvodu nemožnosti ztotožnit zda-li se skutečně jedná o danou osobu, 
+		která se prokázala identifikační kartou.
+		Tento způsob se na VŠE nově používá pro automatickou docházku na výuku, kde je tento způsob identifikace dostatečný. 
+		Další nevýhodou je, že se tento systém dá využít pouze v učebnách, kde je přístup řízen pomocí karet. Na VŠE existují učebny, které tento přístup nemají 
+		a v těchto učebnách by ani nebylo možné tuto metodu identifikace použít.
+		\\
 		
+		Studentům jsou v současné době poskytovány dva typy bezkontaktní identifikačních karet, interní karta školy a mezinárodní karta ISIC.
+		Obě karty jsou v rámci školního užívání rovnocenné. Obě tyto karty využívají technologii RFID-NFC.
 		\section{Problémy stávajícího systému}
-		\section{Souhrn problémů a podmínek řešení}
+		Současný systém je neflexiblní a nabízí příležitosti pro jeho automatizaci. 
+		Současné řešení neodpovídá technickým možnostem, které jsou již na VŠE zavedeny např. elektronické identifikační karty.
+		Další nevýhodou je, že zkoušející musí zadávat prezenci do systému InSIS manuálně.
+		\section{Souhrn problémů a~podmínek řešení}
 		\section{Návrh řešení}
 		\section{Cíl práce}
 	% KONEC KAPITOLY CHARAKTERISTIKA PROBLÉMU
@@ -248,8 +285,56 @@
 	\end{lstlisting}
 	
 	\begin{lstlisting}[caption={Simple code listing.}, label={lst:example1}, language=Kotlin]
-	// this is a simple code listing:
-	println("hello kotlin s from latex")
+		/* Block comment */
+		package hello
+		import kotlin.collections.* // line comment
+		
+		/**
+		 * Doc comment here for `SomeClass`
+		 * @see Iterator#next()
+		 */
+		@Deprecated("Deprecated class")
+		private class MyClass<out T : Iterable<T>>(var prop1 : Int) {
+		    fun foo(nullable : String?, r : Runnable, f : () -> Int, 
+		        fl : FunctionLike, dyn: dynamic) {
+		        println("length\nis ${nullable?.length} \e")
+		        val ints = java.util.ArrayList<Int?>(2)
+		        ints[0] = 102 + f() + fl()
+		        val myFun = { -> "" };
+		        var ref = ints.size
+		        ints.lastIndex + globalCounter
+		        ints.forEach lit@ {
+		            if (it == null) return@lit
+		            println(it + ref)
+		        }
+		        dyn.dynamicCall()
+		        dyn.dynamicProp = 5
+		    }
+		    
+		    val test = """hello
+		                  world
+		                  kotlin"""
+		    override fun hashCode(): Int {
+		        return super.hashCode() * 31
+		    }
+		}
+		fun Int?.bar() {
+		    if (this != null) {
+		        println(message = toString())
+		    }
+		    else {
+		        println(this.toString())
+		    }
+		}
+		var globalCounter : Int = 5
+		    get = field
+		abstract class Abstract {
+		}
+		object Obj
+		enum class E { A, B }
+		interface FunctionLike {
+		    operator fun invoke() = 1
+		}
 	\end{lstlisting}
 	
 \end{document}
